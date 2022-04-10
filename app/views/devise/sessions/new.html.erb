@@ -1,0 +1,39 @@
+<div class='container'>
+  <div class='row justify-content-center'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0">
+      <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+
+        <h4 class="card-title mt-3 text-center">ログイン</h4><br>
+
+        <%= form_with model: @user, url: user_session_path do |f| %>
+
+          <div class="form-group input-group">
+          	<div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-user"></i></span>
+              <%= f.text_field :name, autofocus: true, placeholder: "Full name", autocomplete: "name", class: "form-control" %>
+            </div>
+          </div>
+          <div class="form-group input-group">
+          	<div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-lock"></i></span>
+              <%= f.password_field :password,  placeholder: "Password", class: "form-control", autocomplete: "current-password" %>
+            </div>
+          </div>
+          <% if devise_mapping.rememberable? %>
+            <div class="field">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </div>
+          <% end %>
+          <div class="actions">
+            <%= f.submit "Log in", class: "btn btn-primary btn-block" %>
+          </div>
+        <% end %>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<%= render "devise/shared/links" %>-->

@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+.top-visual{
+  background: url('medamayaki.jpg') top center / cover no-repeat;
+}
