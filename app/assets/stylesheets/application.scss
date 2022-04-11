@@ -1,0 +1,61 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+.top-visual{
+  height: 850px;
+  background-image: url(medamayaki);
+  background-size: cover;
+  background-attachment: fixed;         /* 固定 */
+  background-position: center center;   /* 縦横中央 */
+  position: relative;
+}
+
+.title-top{
+  position: absolute;
+  top: 480px; /* #contents内の上から何pxか */
+  left: 280px; /* #contents内の左から何pxか */
+}
+
+.about-top{
+  width: 100%;
+  min-height: 35vh;
+  background: url(breakfast-about1)center / cover;     /* 縦幅のサイズを指定    */
+}
+
+h3{
+  text-align: center;
+}
+
+.introduction{
+  text-align: center
+}
+
+.top-ul{
+  list-style: none;
+  position: absolute;
+  top: 550px; /* #contents内の上から何pxか */
+  left: 130px; /* #contents内の左から何pxか */
+  display: flex;
+}
+
+.top-li {
+   margin: 0 0 0 20px;
+   font-size: 14px;
+}
+
+a{
+  color: black;
+}
