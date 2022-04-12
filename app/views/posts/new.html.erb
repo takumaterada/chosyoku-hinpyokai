@@ -1,0 +1,29 @@
+<%= render "layouts/header" %>
+<div class="container mt-5">
+
+  <%= form_with model:@post, url: new_post_path, local:true do |f| %>
+
+    <div class="form-group">
+      <%= f.label :"朝食名" %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :"紹介文" %>
+      <%= f.text_area :describe, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :"画像" %>
+      <%= f.file_field :image %>
+    </div>
+    <div class="form-group row">
+      <%= f.label :"ジャンル" %>
+      <%= f.collection_select :genre_id, Genre.all, :id, :name, class: "form-control" %>
+    </div>
+
+
+    <div class="form-group">
+      <%= f.submit class: 'btn btn-success' %>
+    </div>
+  <% end %>
+
+</div><!--container mt-5-->

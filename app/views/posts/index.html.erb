@@ -1,0 +1,17 @@
+<%= render "layouts/header" %>
+<div class="container mt-5">
+
+  <% @posts.each do |post| %>
+    <div class="d-inline-flex p-2 bd-highlight ">
+      <%= link_to post_path(post.id), :style => "color: #000000;" do %>
+        <%= image_tag post.get_image(100,100) %><br>
+        <%= post.name %><br>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="row justify-content-center">
+      <%= paginate @posts %></p>
+  </div>
+
+</div>
