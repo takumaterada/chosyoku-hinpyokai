@@ -20,6 +20,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find[params:id]
+    @user = @post.user
   end
 
   def edit
@@ -45,7 +46,7 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:name, :describe, :user_id, :score_taste, :score_price, :score_stomach, :score_nutrition, :score_easy,
-    :image, :genre_id, :shop_name, :shop_address, :shop_longitude, :shop_latitude)
+    :image, :genre_id, :shop_name, :shop_address, :shop_longitude, :shop_latitude, :evaluation)
   end
 
 end

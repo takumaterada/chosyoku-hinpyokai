@@ -1,0 +1,11 @@
+<%= render "layouts/header" %>
+
+<div class="container mt-5">
+  <%= form_with model: @genre,url: edit_genres_path(@gnere.id) do |f| %>
+    <%= f.label :"ジャンル名" %>
+    <%= f.text_field :name %>
+    <%= f.submit "追加", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<%= render "layouts/footer" %>

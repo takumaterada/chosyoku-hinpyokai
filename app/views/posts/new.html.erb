@@ -2,13 +2,12 @@
 <div class="container mt-5">
 
   <%= form_with model:@post, url: new_post_path, local:true do |f| %>
-
     <div class="form-group">
-      <%= f.label :"朝食名" %>
+      <%= f.label :name, "朝食名" %>
       <%= f.text_field :name, class: 'form-control' %>
     </div>
     <div class="form-group">
-      <%= f.label :"紹介文" %>
+      <%= f.label :describe, "紹介文" %>
       <%= f.text_area :describe, class: 'form-control' %>
     </div>
     <div class="form-group">
@@ -19,11 +18,30 @@
       <%= f.label :"ジャンル" %>
       <%= f.collection_select :genre_id, Genre.all, :id, :name, class: "form-control" %>
     </div>
-
+    <div class="star-form-group" id="star1">               <%#id要素の付与がポイント%>
+      <%= f.label :score_taste,'評価(味)', class:'star-title' %>　<%#保存したいカラムの指定%>
+      <%= f.label :score_price,'評価(価格)', class:'star-title' %>
+      <%= f.label :score_stomach,'評価(腹持ち)', class:'star-title' %>
+      <%= f.label :score_nutrition,'評価(栄養)', class:'star-title' %>
+      <%= f.label :score_easy,'評価(手軽さ)', class:'star-title' %>
+    </div>
 
     <div class="form-group">
-      <%= f.submit class: 'btn btn-success' %>
+      <%= f.submit:"新規登録", class: 'btn btn-success' %>
     </div>
   <% end %>
 
+    <script>
+    $('#star1').raty({
+      size     : 38,                                    //星のサイズ
+      starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'post[score_taste]',     //reviewモデルのcomfortカラムに保存
+      half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
+    });
+    </script>
+
 </div><!--container mt-5-->
+
+<%= render "layouts/footer" %>
