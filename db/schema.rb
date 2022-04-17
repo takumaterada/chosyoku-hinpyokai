@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2022_04_10_013703) do
   end
 
   create_table "post_comments", force: :cascade do |t|
+    t.text "comment", null: false
     t.integer "user_id", null: false
     t.integer "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -71,17 +72,18 @@ ActiveRecord::Schema.define(version: 2022_04_10_013703) do
   create_table "posts", force: :cascade do |t|
     t.integer "user_id"
     t.integer "genre_id"
+    t.string "tag", null: false
     t.string "name", null: false
-    t.text "discribe", null: false
+    t.text "describe", null: false
     t.float "score_taste", default: 0.0, null: false
     t.float "score_price", default: 0.0, null: false
     t.float "score_stomach", default: 0.0, null: false
     t.float "score_nutrition", default: 0.0, null: false
     t.float "score_easy", default: 0.0, null: false
-    t.string "shop_name", null: false
-    t.string "shop_address", null: false
-    t.integer "shop_longitude", null: false
-    t.integer "shop_latitude", null: false
+    t.string "shop_name"
+    t.string "shop_address"
+    t.float "shop_longitude"
+    t.float "shop_latitude"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

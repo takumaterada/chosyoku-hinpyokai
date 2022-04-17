@@ -16,7 +16,8 @@
 
 .top-visual{
   height: 850px;
-  background-image: url(medamayaki);
+  //background-image: url(medamayaki);
+  background-image: image-url("medamayaki.jpg");
   background-size: cover;
   background-attachment: fixed;         /* 固定 */
   background-position: center center;   /* 縦横中央 */
@@ -32,7 +33,10 @@
 .about-top{
   width: 100%;
   min-height: 35vh;
-  background: url(breakfast-about1)center / cover;     /* 縦幅のサイズを指定    */
+  background-image: image-url("breakfast-about1.jpg");
+  background-size: cover;
+  background-position: center;
+  //background: url(breakfast-about1)center / cover;     /* 縦幅のサイズを指定    */
 }
 
 h3{
@@ -59,3 +63,6 @@ h3{
 a{
   color: black !important;
 }
+
+body {
+  background-image: image-url("../images/hoge.jpg");}

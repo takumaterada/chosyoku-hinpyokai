@@ -5,18 +5,18 @@
       <div class='col-sm-3'>
       <h2>User info</h2>
         <table class='table'>
-          <tr><%= image_tag @user.get_profile_image, size:'100x100' %></tr>
+          <tr><%#= image_tag @user.get_profile_image, size:'100x100' %></tr>
           <tr>
         	  <th>name</th>
         	  <th><%= @user.name %></th>
           </tr>
           <tr>
         	  <th>introduction</th>
-        	  <th><%= @user.describe %></th>
+        	  <th><%= @user.introduction %></th>
           	<tr>
         	  <th>フォロー数</th>
         	  　<td>
-        	      <%= link_to user_followings_path(user) do %>
+        	      <%= link_to user_followings_path(@user) do %>
         	    　<%= @user.followings.count %>
         	      <% end %>
         	    </td>
@@ -24,7 +24,7 @@
         	  <tr>
               <th>フォロワー数</th>
                 <td>
-                  <%= link_to user_followers_path(user) do %>
+                  <%= link_to user_followers_path(@user) do %>
                   <%= @user.followers.count %>
                   <% end %>
                 </td>
@@ -43,7 +43,7 @@
       </div><!--col-sm-3-->
     <div class='col-sm-8 offset-md-1'>
       <h2>朝食一覧</h2>
-      <%= render 'posts/index', posts: @posts %>
+      <%#= render 'posts/index', posts: @posts %>
     </div>
   </div>
 </div>

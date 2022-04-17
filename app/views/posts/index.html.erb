@@ -1,7 +1,7 @@
 <%= render "layouts/header" %>
 <div class="container mt-5">
 
-  <% posts.each do |post| %>
+  <% @posts.each do |post| %>
     <div class="d-inline-flex p-2 bd-highlight ">
       <%= link_to post_path(post.id), :style => "color: #000000;" do %>
         <%= image_tag post.get_image(100,100) %><br>
@@ -10,8 +10,18 @@
     </div>
   <% end %>
 
+  <!--タグリスト-->
+  <% @tag_list.each do |list|%>
+    <%=link_to list, search_tag_path %>
+    <%#="(#{list.count})" %>
+  <% end %>
+  <!--投稿一覧画面で投稿に紐づくタグを表示-->
+  <% @posts.each do |post| %>
+    <i class="fas fa-tag"><%= post.tags.map(&:name).join(', ') %></i>
+  <% end %>
+
   <div class="row justify-content-center">
-      <%= paginate posts %></p>
+      <%= paginate @posts %></p>
   </div>
 
 </div><!--container mt-5-->
