@@ -5,7 +5,7 @@
       <div class='col-sm-3'>
       <h2>User info</h2>
         <table class='table'>
-          <tr><%#= image_tag @user.get_profile_image, size:'100x100' %></tr>
+          <tr><%= image_tag @user.get_profile_image(100,100) %></tr>
           <tr>
         	  <th>name</th>
         	  <th><%= @user.name %></th>
@@ -34,13 +34,13 @@
 
       <div class='row'>
         <% if @user == current_user %>
-        <%= link_to "編集", edit_user_path(@user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
-          <i class="fas fa-user-cog"></i>
-        <% end %>
+          <%= link_to edit_user_path(@user), class: "btn btn-outline-secondary btn-block" do %>
+            <i class="fas fa-user-cog"></i>
+          <% end %>
         <% end %>
       </div>
 
-      </div><!--col-sm-3-->
+    </div><!--col-sm-3-->
     <div class='col-sm-8 offset-md-1'>
       <h2>朝食一覧</h2>
       <%#= render 'posts/index', posts: @posts %>
