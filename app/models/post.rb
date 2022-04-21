@@ -17,6 +17,10 @@ class Post < ApplicationRecord
     image.variant(resize_to_limit: [width, height]).processed
   end
 
+  def favorited_by?(user)
+    favorites.where(user_id: user.id).exists?
+  end
+
   def save_tag(sent_tags)
   # タグが存在していれば、タグの名前を配列として全て取得
     current_tags = self.tags.pluck(:name) unless self.tags.nil?
@@ -27,7 +31,7 @@ class Post < ApplicationRecord
 
     # 古いタグを消す
     old_tags.each do |old|
-      self.tags.delete　Tag.find_by(name: old)
+      self.tags.delete Tag.find_by(name: old)
     end
 
     # 新しいタグを保存

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-    @post = @user.posts
+    @posts = Post.where(user: @user).page(params[:page])
   end
 
   def edit

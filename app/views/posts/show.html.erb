@@ -1,56 +1,267 @@
 <%= render "layouts/header" %>
 <div class="container mt-5">
-  <div class="row mt-3">
-    <div class="offset-sm-1 col-sm-3">
-      <% if @post.image.attached? %>
-      <%= image_tag @post.image, size: '200x200' %>
-      <% else %>
-      <%= image_tag 'medamayaki' %>
+  <div class="row">
+    <div class="col-sm-5">
+      <span>投稿ユーザー：</span>
+      <%= link_to(@post.user) do %>
+        <%= image_tag @post.user.get_profile_image(50,50) %>
+        <%= @user.name %>
+      <% end %><br>
+      <span>ジャンル：</span><%= @post.genre.name %><br>
+      <span><i class="fas fa-tag"></i></span>
+      <% @post_tags.each do |tag| %><!--タグ表示-->
+        <%= link_to tag.name, search_tag_path(tag_id: tag.id)%><%="(#{tag.posts.count})" %>
       <% end %>
+      <% if @post.image.attached? %>
+        <%= image_tag @post.image, size: '450x350' %>
+      <% else %>
+        <%= image_tag 'medamayaki' %>
+      <% end %>
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <td>
+              <span>評価(味)：</span>
+            </td>
+            <td>
+              <span id="star-rate-score_taste"></span>
+                <script>
+                      $('#star-rate-score_taste').raty({
+                        size: 36,
+                        starOff: "<%= asset_path('star-off.png') %>",
+                        starOn: "<%= asset_path('star-on.png') %>",
+                        starHalf: "<%= asset_path('star-half.png') %>",
+                        half: true,   //# 星半分表示
+                        readOnly: true,   //# 読み取り専用
+                        score: <%= @post.score_taste %>,   //# 星評価の表示
+                      });
+                    </script>
+              </td>
+          </tr>
+          <tr>
+            <td>
+              <span>評価(価格)：</span>
+            </td>
+            <td>
+              <span id="star-rate-score_price"></span>
+                <script>
+                      $('#star-rate-score_price').raty({
+                        size: 36,
+                        starOff: "<%= asset_path('star-off.png') %>",
+                        starOn: "<%= asset_path('star-on.png') %>",
+                        starHalf: "<%= asset_path('star-half.png') %>",
+                        half: true,   //# 星半分表示
+                        readOnly: true,   //# 読み取り専用
+                        score: <%= @post.score_price %>,   //# 星評価の表示
+                      });
+                </script>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>評価(腹持ち)：</span>
+            </td>
+            <td>
+              <span id="star-rate-score_stomach"></span>
+                <script>
+                      $('#star-rate-score_stomach').raty({
+                        size: 36,
+                        starOff: "<%= asset_path('star-off.png') %>",
+                        starOn: "<%= asset_path('star-on.png') %>",
+                        starHalf: "<%= asset_path('star-half.png') %>",
+                        half: true,   //# 星半分表示
+                        readOnly: true,   //# 読み取り専用
+                        score: <%= @post.score_stomach %>,   //# 星評価の表示
+                      });
+                </script>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>評価(栄養)：</span>
+            </td>
+            <td>
+              <span id="star-rate-score_nutrition"></span>
+                <script>
+                      $('#star-rate-score_nutrition').raty({
+                        size: 36,
+                        starOff: "<%= asset_path('star-off.png') %>",
+                        starOn: "<%= asset_path('star-on.png') %>",
+                        starHalf: "<%= asset_path('star-half.png') %>",
+                        half: true,   //# 星半分表示
+                        readOnly: true,   //# 読み取り専用
+                        score: <%= @post.score_nutrition %>,   //# 星評価の表示
+                      });
+                </script>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>評価(手軽さ)：</span>
+            </td>
+            <td>
+              <span id="star-rate-score_easy"></span>
+                <script>
+                      $('#star-rate-score_easy').raty({
+                        size: 36,
+                        starOff: "<%= asset_path('star-off.png') %>",
+                        starOn: "<%= asset_path('star-on.png') %>",
+                        starHalf: "<%= asset_path('star-half.png') %>",
+                        half: true,   //# 星半分表示
+                        readOnly: true,   //# 読み取り専用
+                        score: <%= @post.score_easy %>,   //# 星評価の表示
+                      });
+                </script>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-        <div class="col-sm-4">
+
+        <div class="col-sm-5 offset-sm-1">
         　<table class="table table-borderless">
             <tbody>
-            　<tr>
-                <td>商品名</td>
-                <td><%= @post.name %></td>
-            　</tr>
 
               <tr>
-                <td>商品説明</td>
-                <td><%= @post.describe %></td>
+                <td>[ 朝食名 ]<br>
+                  <%= @post.name %>
+                </td>
               </tr>
 
               <tr>
-                <td>ジャンル</td>
-                <td><%= @post.genre.name %></td>
+                <td>[ 朝食紹介 ]<br>
+                  <%= @post.describe %>
+                </td>
               </tr>
 
               <tr>
-                <td>投稿ユーザー</td>
-                <td><%= link_to(@post.user) do %>
-                    <%= @user.name %>
-                    <%= image_tag @post.user.get_profile_image(50,50) %>
-                    <% end %>
+                <td>[ 店舗名 ]<br>
+                <% if @post.genre.name == "外食(その他)" || @post.genre.name == "外食(モーニング)" %>
+                  <%= @post.shop_name %>
+                <% else %>
+                  <p>なし</p>
+                <% end %>
                 </td>
               </tr>
               <tr>
-                <td>
-                  <% @post_tags.each do |tag| %><!--タグ表示-->
-                    <%= link_to tag.name, search_tag_path(tag_id: tag.id)%><%="(#{tag.posts.count})" %>
-                  <% end %>
+                <td>[ 店舗住所 ]<br>
+                <% if @post.genre.name == "外食(その他)" || @post.genre.name == "外食(モーニング)" %>
+                  <%= @post.shop_address %>
+                <% else %>
+                  <p>なし</p>
+                <% end %>
                 </td>
               </tr>
+              <tr>
+                <td>[ 店舗地図 ]</td>
             </tbody>
           </table>
-        </div>
+                  <% if @post.genre.name == "外食(その他)" || @post.genre.name == "外食(モーニング)" %>
+
+                  <div id='map'>
+                  </div>
+                    <style>
+                      #map{
+                        height: 400px;
+                        width: 500px;
+                      }
+                    </style>
+                  <script>
+                    /*
+                    mapを関数の外で定義(codeAddressでも使うため)
+                    geocoderを用意
+                    */
+                    {
+                    let map
+                    let geocoder
+                    function initMap(){
+                      // geocoderを初期化
+                      geocoder = new google.maps.Geocoder()
+
+                      map = new google.maps.Map(document.getElementById('map'), {
+                      center: {lat: -34.397, lng: 150.644},
+                      zoom: 15
+                      });
+                      codeAddress();
+                    }
+
+                    function codeAddress(){
+                      // 入力を取得
+                      let inputAddress = "<%= @post.shop_address %>";
+
+                      // geocodingしたあとmapを移動
+                      geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+                        if (status == 'OK') {
+                    　　　　　　　　　　　　// map.setCenterで地図が移動
+                          map.setCenter(results[0].geometry.location);
+
+                    　　　　　　　　　　　　// google.maps.MarkerでGoogleMap上の指定位置にマーカが立つ
+                          var marker = new google.maps.Marker({
+                              map: map,
+                              position: results[0].geometry.location
+                          });
+                        } else {
+                          alert('Geocode was not successful for the following reason: ' + status);
+                        }
+                      });
+                    }
+                    }
+                    </script>
+                  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCax0NbXddSyqAajLqrGQJPigHkcscOQuI&callback=initMap" async defer></script>
+                  <% else %>
+                  <p>なし</p>
+                  <% end %>
+    </div><!--col-sm-5-->
   </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <% if current_user %>
+            <% if @post.favorited_by?(current_user) %>
+                <%= link_to post_favorites_path(@post), method: :delete do %>
+                  ♥<%= @post.favorites.count %> いいね
+                <% end %>
+            <% else %>
+                <%= link_to post_favorites_path(@post), method: :post do %>
+                  ♡<%= @post.favorites.count %> いいね
+                <% end %>
+            <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          </div class="col-sm-12">
+          <%= form_with model: [@post, @post_comment] do |f| %>
+              <%= f.text_area :comment, rows: '5', cols: '80', placeholder: "コメントをここに" %><br>
+              <div class="text-center" >
+                <%= f.submit "送信する", class: "btn btn-secondary" %>
+              </div>
+          <% end %>
+
+            コメント件数：<%= @post.post_comments.count %>
+            <p><% @post.post_comments.each do |post_comment| %></p>
+              <%= image_tag post_comment.user.get_profile_image(50,50) %>
+              <%= post_comment.user.name %>
+              <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+              <% if post_comment.user == current_user %>
+                <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
 
   <div class="row">
     <div class="offset-sm-9 col-sm-2">
-      <%= link_to "編集", edit_post_path(@post), class: "btn btn-primary" %>
-      <%= link_to '削除', @post, url: edit_post_path, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
+      <% if @post.user == current_user %>
+        <%= link_to "編集", edit_post_path(@post), class: "btn btn-secondary text-white" %>
+        <%= link_to '削除', @post, url: edit_post_path, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-danger text-white"%>
+      <% end %>
     </div>
   </div>
-</div>
+
+ </div><!--container mt-5-->
+
 <%= render "layouts/footer" %>

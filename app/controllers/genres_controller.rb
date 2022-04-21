@@ -14,7 +14,7 @@ class GenresController < ApplicationController
      render :index
     end
   end
-  
+
   def edit
     @genre = Genre.find(params[:id])
   end
@@ -26,10 +26,11 @@ class GenresController < ApplicationController
   end
 
   private
+
   def genre_params
     params.require(:genre).permit(:name)
   end
-  
+
 end
 
 

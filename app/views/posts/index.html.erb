@@ -1,24 +1,51 @@
 <%= render "layouts/header" %>
 <div class="container mt-5">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="card">
+        <div class="card-header">
+          よいね数ランキング
+          </div>
+        <div class="card-body">
+            <!--同率順位表示-->
+        <% last_like = 0 %>
+        <% j = 1 %>
+        <% @post_like_ranks.each.with_index(1) do |rank, i| %>
+          <%= link_to post_path(rank) do %>
+          <!--最初の値をlast_likeに保存-->
+            <% if i == 1 %>
+              <% last_like = rank.favorites.count %>
+            <% end %>
+            <!--last_likeといいね数比べて同じなら同じ順位、違うなら次の順位表示-->
+            <% if rank.favorites.count != last_like %>
+              <% j = i %>
+              第<%= j %>位<p><%= rank.name %>:
+              <%= rank.favorites.count %>いいね
+              <% last_like = rank.favorites.count %></p>
+            <% else %>
+              <% last_like = rank.favorites.count %>
+              第<%= j %>位<p><%= rank.name %>:
+              <%= rank.favorites.count %>いいね</p>
+            <% end %>
+          <% end %>
+        <% end %>
+        </div>
+      </div>
+    </div>
 
+  <div class="col-sm-8 offset-sm-1 justify-content-start">
+  <h3>投稿一覧</h3>
   <% @posts.each do |post| %>
-    <div class="d-inline-flex p-2 bd-highlight ">
-      <%= link_to post_path(post.id), :style => "color: #000000;" do %>
-        <%= image_tag post.get_image(100,100) %><br>
-        <%= post.name %><br>
+    <div class="d-inline-flex p-4 bd-highlight ">
+      <%= link_to post_path(post.id) do %>
+        <p><%= image_tag post.get_image(300,300) %></p>
+        <p><%= post.name %></p>
+        <p><%= "#{post.post_comments.count} コメント" %></p>
+        <p><%= "#{post.favorites.count} よいね" %></p>
       <% end %>
     </div>
   <% end %>
-
-  <!--タグリスト-->
-  <% @tag_list.each do |list|%>
-    <%=link_to list, search_tag_path %>
-    <%#="(#{list.count})" %>
-  <% end %>
-  <!--投稿一覧画面で投稿に紐づくタグを表示-->
-  <% @posts.each do |post| %>
-    <i class="fas fa-tag"><%= post.tags.map(&:name).join(', ') %></i>
-  <% end %>
+  </div>
 
   <div class="row justify-content-center">
       <%= paginate @posts %></p>

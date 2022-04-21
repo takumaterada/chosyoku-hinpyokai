@@ -1,35 +1,44 @@
 <%= render "layouts/header" %>
 
 <div class="container mt-5">
-     <%= form_with model:@post, url: edit_post_path, local:true do |f| %>
-    <div class="form-group">
-      <%= f.label :name, "朝食名" %>
-      <%= f.text_field :name, class: 'form-control' %>
+     <%= form_with model:@post, url: post_path(@post), local:true do |f| %>
+    <div class="form-horizontal">
+    <div class="row">
+      <div class="form-group col-3">
+        <%= f.label :name, "朝食名" %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
     </div>
-    <div class="form-group">
-      <%= f.label :describe, "紹介文" %>
-      <%= f.text_area :describe, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.label :"画像" %>
-      <%= f.file_field :image %>
-    </div>
-    <div class="form-group row">
-      <%= f.label :"ジャンル" %>
-      <%= f.collection_select :genre_id, Genre.all, :id, :name, class: "form-control" %>
-    </div>
-    <div class="star-form-group" id="star1">               <%#id要素の付与がポイント%>
-      <%= f.label :score_taste,'評価(味)', class:'star-title' %>　<%#保存したいカラムの指定%>
-      <%= f.label :score_price,'評価(価格)', class:'star-title' %>
-      <%= f.label :score_stomach,'評価(腹持ち)', class:'star-title' %>
-      <%= f.label :score_nutrition,'評価(栄養)', class:'star-title' %>
-      <%= f.label :score_easy,'評価(手軽さ)', class:'star-title' %>
+    <div class="row">
+      <div class="form-group col-6">
+        <%= f.label :describe, "紹介文" %>
+        <%= f.text_area :describe, class: 'form-control', rows: "8" %>
+      </div>
     </div>
 
-    <div class="form-group">
-      <%= f.submit:"更新", class: 'btn btn-success' %>
+    <div class="row">
+      <div class="form-group col-6">
+        <%= f.label :"画像" %><br>
+        <%= f.file_field :image %>
+      </div>
     </div>
-  <% end %>
+
+    <div class="row">
+      <div class="form-group col-6">
+        <%= f.label :"ジャンル" %><br>
+        <%= f.collection_select :genre_id, Genre.all, :id, :name, class: "form-control" %>
+        </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-6">
+        <%= f.label :tag, "タグ(,で区切ると複数登録できます)" %><br>
+        <%= f.text_field :tag, class: "form-control" %>
+        </div>
+    </div>
+
+      <div class="star-form-group" id="star1">               <%#id要素の付与がポイント%>
+        <%= f.label :score_taste,'評価(味)', class:'star-title' %>　<%#保存したいカラムの指定%>
+      </div>
 
     <script>
     $('#star1').raty({
@@ -41,6 +50,145 @@
       half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
     });
     </script>
+
+    <div class="star-form-group" id="star2"><%#id要素の付与がポイント%>
+      <%= f.label :score_price,'評価(価格)', class:'star-title' %>   <%#保存したいカラムの指定%>
+    </div>
+
+    <script>
+    $('#star2').raty({
+      size     : 38,                                    //星のサイズ
+      starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'post[score_price]',     //postモデルのscoreカラムに保存
+      half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
+    });
+    </script>
+
+    <div class="star-form-group" id="star3"><%#id要素の付与がポイント%>
+      <%= f.label :score_stomach,'評価(腹持ち)', class:'star-title' %>   <%#保存したいカラムの指定%>
+    </div>
+
+    <script>
+    $('#star3').raty({
+      size     : 38,                                    //星のサイズ
+      starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'post[score_stomach]',     //reviewモデルのcomfortカラムに保存
+      half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
+    });
+    </script>
+
+    <div class="star-form-group" id="star4"><%#id要素の付与がポイント%>
+      <%= f.label :score_nutrition,'評価(栄養)', class:'star-title' %>   <%#保存したいカラムの指定%>
+    </div>
+
+    <script>
+    $('#star4').raty({
+      size     : 38,                                    //星のサイズ
+      starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'post[score_nutrition]',     //reviewモデルのcomfortカラムに保存
+      half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
+    });
+    </script>
+
+    <div class="star-form-group" id="star5"><%#id要素の付与がポイント%>
+      <%= f.label :score_easy,'評価(手軽さ)', class:'star-title' %>   <%#保存したいカラムの指定%>
+    </div>
+
+    <script>
+    $('#star5').raty({
+      size     : 38,                                    //星のサイズ
+      starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'post[score_easy]',     //reviewモデルのcomfortカラムに保存
+      half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
+    });
+    </script>
+
+    <div class="row">
+    <div class="form-group col-3">
+      <%= f.label :shop_name, "店舗名" %>
+      <%= f.text_field :shop_name, class: 'form-control' %>
+    </div>
+  </div>
+
+    <h2>地図</h2>
+
+    <!-- 地名入力用のinputを追加 -->
+    <input id="address" type="textbox" value="東京タワー">
+
+    <!-- buttonをクリックしたらcodeAddressを実行　-->
+    <input type="button" value="検索" onclick="codeAddress()">
+    <div id='map'>
+    </div>
+
+    <style>
+    #map{
+      height: 400px;
+    }
+    </style>
+
+    <script>
+    /*
+    mapを関数の外で定義(codeAddressでも使うため)
+    geocoderを用意
+    */
+
+    let map
+    let geocoder
+
+    function initMap(){
+      // geocoderを初期化
+      geocoder = new google.maps.Geocoder()
+
+      map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 15
+      });
+    }
+
+    function codeAddress(){
+      // 入力を取得
+      let inputAddress = document.getElementById('address').value;
+      document.getElementById('post_shop_address').value = inputAddress;
+
+
+      // geocodingしたあとmapを移動
+      geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+        if (status == 'OK') {
+    　　　　　　　　　　　　// map.setCenterで地図が移動
+          map.setCenter(results[0].geometry.location);
+
+    　　　　　　　　　　　　// google.maps.MarkerでGoogleMap上の指定位置にマーカが立つ
+          var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+          });
+        } else {
+          alert('Geocode was not successful for the following reason: ' + status);
+        }
+      });
+    }
+    </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCax0NbXddSyqAajLqrGQJPigHkcscOQuI&callback=initMap" async defer></script>
+
+    <div class="row">
+      <div class="form-group col-3">
+        <%= f.label :shop_address, "店舗住所" %>
+        <%= f.text_field :shop_address, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="row justify-content-end">
+      <%= f.submit:"更新", class: 'btn btn-secondary' %>
+    </div>
+  <% end %>
 
 </div>
 <%= render "layouts/footer" %>

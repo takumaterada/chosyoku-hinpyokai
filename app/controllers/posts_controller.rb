@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-    @tag_list = params[:post][:name].split(',')
+    @tag_list = params[:post][:tag].split(',')
     if @post.save
         @post.save_tag(@tag_list)
         redirect_to post_path(@post)
@@ -20,13 +20,15 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.page(params[:page])
-    @tag_list=Tag.all
+    @tag_list = Tag.all
+    @post_like_ranks = Post.find(Favorite.group(:post_id).order('count(post_id) desc').pluck(:post_id))
   end
 
   def show
     @post = Post.find(params[:id])
     @user = @post.user
     @post_tags = @post.tags
+    @post_comment = PostComment.new
   end
 
   def edit
@@ -42,20 +44,22 @@ class PostsController < ApplicationController
     end
   end
 
+
   def destroy
+
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to posts_path
   end
 
+
   def search_tag
-    #検索結果画面でもタグ一覧表示
-    @tag_list=Tag.all
-　　　　　　　#検索されたタグを受け取る
-    @tag=Tag.find(params[:tag_id])
-　　　　　　　　#検索されたタグに紐づく投稿を表示
-    @posts=@tag.posts.page(params[:page]).per(10)
+    @tag_list = Tag.all
+    @tag = Tag.find(params[:tag_id])
+    @posts = @tag.posts.page(params[:page]).per(10)
   end
+
+
 
   private
 

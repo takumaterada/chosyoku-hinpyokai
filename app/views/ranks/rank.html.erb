@@ -1,0 +1,13 @@
+<%= render "layouts/header" %>
+<div class="container mt-5"
+<!--配列の1つ目から順に1位、２位と表示される-->
+<p><% @post_like_ranks.each.with_index(1) do |post, i| %></p>
+  第<%= i %>位
+:
+<!--表示したいカラムをご自由に-->
+<%= post.name %>
+<%= "#{post.favorites.count} よいね" %>
+<% end %>
+
+</div>
+<%= render "layouts/footer" %>

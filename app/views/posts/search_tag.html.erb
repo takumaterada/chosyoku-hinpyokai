@@ -11,11 +11,11 @@
   <div class="card-body">
     <!--タイトル表示される文字数は２５文字までにしてます-->
     <h6 class="card-title">
-      <%=link_to post_path(post.id) do %><%= post.title.truncate(25) %>
+      <%=link_to post_path(post.id) do %><%= post.name.truncate(25) %>
       <% end %>
     </h6>
     <!--お気に入り、コメント数、投稿者は部分テンプレ-->
-      <div id="<%=post.id %>"><%= render 'favorites/favorite', post: post %></div>
+
 
 
   </div>

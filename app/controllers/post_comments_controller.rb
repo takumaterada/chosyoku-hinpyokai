@@ -1,17 +1,17 @@
 class PostCommentsController < ApplicationController
 
   def create
-    @book = Post.find(params[:post_id])
+    @post = Post.find(params[:post_id])
     @comment = current_user.post_comments.new(post_comments_params)
     @comment.post_id = @post.id
     @comment.save
-    @post_comment = PostComment.new
+    redirect_to post_path(@post)
   end
 
   def destroy
     @comment = PostComment.find_by(params[:id], post_id: params[:post_id])
     @comment.destroy
-    @post_comment = PostComment.new
+    redirect_to post_path(params[:post_id])
   end
 
   private

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get "homes/about"=>"homes#about"
 
   resources :posts, only: [:index,:show,:edit,:create,:destroy,:update,:new]do
-    resources :post_comments, only: [:create]
+    resources :post_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
   end
 
@@ -25,5 +25,7 @@ Rails.application.routes.draw do
 
   get "search" => "searches#search"
   get "search_result" => "searches#search_result"
+
+  get "rank" => "ranks#rank"
 
 end

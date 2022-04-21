@@ -1,0 +1,20 @@
+<%= render "layouts/header" %>
+<div class="container mt-5">
+  <h2>検索結果</h2>
+    <% @posts.each do |post| %>
+    <div class="d-inline-flex p-4">
+      <%= link_to post_path(post.id) do %>
+        <p><%= image_tag post.get_image(300,300) %></p>
+        <p><%= post.name %></p>
+        <p><%= "#{post.post_comments.count} コメント" %></p>
+        <p><%= "#{post.favorites.count} よいね" %></p>
+      <% end %>
+    </div>
+    <% end %>
+
+  <div class="row justify-content-center">
+    <%= paginate @posts %></p>
+  </div>
+
+  </div><!--container mt-5-->
+<%= render "layouts/footer" %>

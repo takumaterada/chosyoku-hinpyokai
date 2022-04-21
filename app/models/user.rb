@@ -10,6 +10,18 @@ class User < ApplicationRecord
     # 一覧画面で使う
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
+  
+  def follow(user_id)
+    relationships.create(followed_id: user_id)
+  end
+  # フォローを外すときの処理
+  def unfollow(user_id)
+    relationships.find_by(followed_id: user_id).destroy
+  end
+  # フォローしているか判定
+  def following?(user)
+    followings.include?(user)
+  end
 
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
@@ -22,7 +34,7 @@ class User < ApplicationRecord
 
   def get_profile_image(width, height)
     unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/medamayaki-icon.jpeg')
+      file_path = Rails.root.join('app/assets/images/medamayaki-icon.jpg')
       profile_image.attach(io: File.open(file_path), filename: 'medamayaki.jpg', content_type: 'image/jpeg')
     end
     profile_image.variant(resize_to_limit: [width, height]).processed

@@ -23,6 +23,11 @@
           <li>
             <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-dark' %>
           </li>
+          <li>
+            <% if current_user.is_admin == true %>
+              <%= link_to "ジャンル編集", genres_path, class: 'nav-link text-dark' %>
+            <% end %>
+          </li>
         <% else %>
           <li>
             <%= link_to "About", homes_about_path, class: 'nav-link text-dark' %>
@@ -36,6 +41,10 @@
           <li>
             <%= link_to "ログイン", new_user_session_path, class: 'nav-link text-dark' %>
           </li>
+        <% end %>
+        <%= form_with url: search_path, local: true, method: :get, class: "form-inline justify-content-end" do |f| %>
+          <%= f.text_field :name, placeholder: "検索ワード", class: "form-control" %>
+          <%= f.submit "検索", class: "btn btn-secondary" %>
         <% end %>
   </div>
   </nav>
