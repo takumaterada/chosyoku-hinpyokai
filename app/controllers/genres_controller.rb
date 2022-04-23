@@ -17,11 +17,22 @@ class GenresController < ApplicationController
 
   def edit
     @genre = Genre.find(params[:id])
+
   end
 
   def update
     @genre = Genre.find(params[:id])
-    @genre.update(genre_params)
+    if @genre.update(genre_params)
+      redirect_to genres_path
+    else
+    @genres = Genre.page(params[:page])
+    render :edit
+    end
+  end
+
+  def destroy
+    @genre = Genre.find(params[:id])
+    @genre.destroy
     redirect_to genres_path
   end
 

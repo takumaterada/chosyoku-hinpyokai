@@ -12,22 +12,22 @@
           </tr>
           <tr>
         	  <th>introduction</th>
-        	  <th><%= @user.introduction %></th>
-          	<tr>
-        	  <th>フォロー数</th>
-        	  　<td>
+        	  <td><%= @user.introduction %></td>
+          <tr>
+        	  <th style="min-width: 120px">フォロー数</th>
+        	  <td style="text-align: right;">
         	      <%= link_to user_followings_path(@user) do %>
-        	    　<%= @user.followings.count %>
-        	      <% end %>
+        	    　  <%= @user.followings.count %>
+        	      <%- end %>
         	    </td>
             </tr>
         	  <tr>
               <th>フォロワー数</th>
-                <td>
-                  <%= link_to user_followers_path(@user) do %>
+              <td style="text-align: right;">
+                <%= link_to user_followers_path(@user) do %>
                   <%= @user.followers.count %>
-                  <% end %>
-                </td>
+                <%- end %>
+              </td>
             </tr>
           </tr>
         </table>

@@ -10,7 +10,7 @@ class User < ApplicationRecord
     # 一覧画面で使う
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
-  
+
   def follow(user_id)
     relationships.create(followed_id: user_id)
   end
@@ -38,6 +38,10 @@ class User < ApplicationRecord
       profile_image.attach(io: File.open(file_path), filename: 'medamayaki.jpg', content_type: 'image/jpeg')
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
+  end
+
+  def active_for_authentication?
+    super && (is_deleted == false)
   end
 
 end

@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="card">
-        <div class="card-header">
+        <div class="card-header text-center">
           よいね数ランキング
           </div>
         <div class="card-body">
@@ -31,10 +31,43 @@
         <% end %>
         </div>
       </div>
+      <br>
+      <div class="card">
+        <div class="card-header text-center">
+          コメント数ランキング
+          </div>
+        <div class="card-body">
+            <!--同率順位表示-->
+        <% last_like = 0 %>
+        <% j = 1 %>
+        <% @post_comment_ranks.each.with_index(1) do |comment, i| %>
+          <%= link_to post_path(comment) do %>
+          <!--最初の値をlast_likeに保存-->
+            <% if i == 1 %>
+              <% last_like = comment.post_comments.count %>
+            <% end %>
+            <!--last_likeといいね数比べて同じなら同じ順位、違うなら次の順位表示-->
+            <% if comment.post_comments.count != last_like %>
+              <% j = i %>
+              第<%= j %>位<p><%= comment.name %>:
+              <%= comment.post_comments.count %>コメント
+              <% last_like = comment.post_comments.count %></p>
+            <% else %>
+              <% last_like = comment.post_comments.count %>
+              第<%= j %>位<p><%= comment.name %>:
+              <%= comment.post_comments.count %>コメント</p>
+            <% end %>
+          <% end %>
+        <% end %>
+        </div>
+      </div>
     </div>
 
   <div class="col-sm-8 offset-sm-1 justify-content-start">
   <h3>投稿一覧</h3>
+  <%= form_with model:@post, local:true do |f| %>
+    <%= f.collection_select(:genre_id, @genres, :id, :name, {prompt: "ジャンルで絞込み"} ) %>
+  <% end %>
   <% @posts.each do |post| %>
     <div class="d-inline-flex p-4 bd-highlight ">
       <%= link_to post_path(post.id) do %>
@@ -47,7 +80,7 @@
   <% end %>
   </div>
 
-  <div class="row justify-content-center">
+  <div class="justify-content-end">
       <%= paginate @posts %></p>
   </div>
 

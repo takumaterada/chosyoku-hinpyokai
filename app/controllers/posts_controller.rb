@@ -12,8 +12,7 @@ class PostsController < ApplicationController
         @post.save_tag(@tag_list)
         redirect_to post_path(@post)
     else
-      @posts = Post.page(params[:page])
-      render 'index'
+      render 'new'
     end
 
   end
@@ -22,6 +21,8 @@ class PostsController < ApplicationController
     @posts = Post.page(params[:page])
     @tag_list = Tag.all
     @post_like_ranks = Post.find(Favorite.group(:post_id).order('count(post_id) desc').pluck(:post_id))
+    @post_comment_ranks = Post.find(PostComment.group(:post_id).order('count(post_id) desc').pluck(:post_id))
+    @genres = Genre.all
   end
 
   def show
@@ -46,7 +47,6 @@ class PostsController < ApplicationController
 
 
   def destroy
-
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to posts_path

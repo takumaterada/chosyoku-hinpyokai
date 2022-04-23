@@ -7,6 +7,14 @@ class Post < ApplicationRecord
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
 
+  validates :name, presence: true
+  validates :describe, presence: true
+  validates :score_easy, presence: true
+  validates :score_nutrition, presence: true
+  validates :score_price, presence: true
+  validates :score_stomach, presence: true
+  validates :score_taste, presence: true
+
   has_one_attached :image
 
   def get_image(width,height)

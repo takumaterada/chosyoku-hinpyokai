@@ -12,7 +12,7 @@
 
   <%= form_with model: @genre,url: genres_path do |f| %>
     <%= f.text_field :name %>
-    <%= f.submit "追加", class: "btn btn-primary" %>
+    <%= f.submit "追加", class: "btn btn-secondary" %>
   <% end %>
 
   <table class = "table table-hover">
@@ -25,7 +25,8 @@
       <% @genres.each do |genre| %>
         <tr>
           <td><%= genre.name %></td>
-          <td><%= link_to "編集する", edit_genre_path(genre.id) ,class: "btn btn-primary" %></td>
+          <td><%= link_to "編集", edit_genre_path(genre.id), class: "btn btn-secondary text-white" %></td>
+          <td><%= link_to "削除", genre_path(genre.id), method: :delete, class: "btn btn-danger text-white" %></td>
         </tr>
       <% end %>
     </tbody>

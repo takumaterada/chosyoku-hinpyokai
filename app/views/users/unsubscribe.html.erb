@@ -1,0 +1,19 @@
+<%= render "layouts/header" %>
+<div class="container mt-5">
+    <h2 class="text-center">退会お手続き</h2>
+    <br>
+    <p class="text-center">退会手続きをされますと、全てのサービスがご利用いただけなくなります。</p>
+    <p class="text-center">再度ご利用をいただく場合には、新規登録のお手続きが必要になります。</p>
+    <p class="text-center">本当に退会してよろしいですか？</p>
+
+    <br>
+    <div class="row justify-content-center">
+      <div class="mr-3">
+        <%= link_to "退会する", withdrawal_path, method: :patch, data: { confilm: "本当に退会しますか？" }, class: "btn btn-danger text-white" %>
+      </div>
+        <%= link_to "退会しない", user_path(current_user), class: "btn btn-primary text-white" %>
+    </div>
+
+  </div>
+</div>
+<%= render "layouts/footer" %>

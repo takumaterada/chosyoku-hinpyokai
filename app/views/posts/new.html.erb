@@ -1,6 +1,15 @@
 <%= render "layouts/header" %>
 <div class="container mt-5">
 
+  <% if @post.errors.any? %>
+    <%= @post.errors.count %>件のエラーが発生しました
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+  <% end %>
+
   <%= form_with model:@post, url: posts_path, local:true do |f| %>
   <div class="form-horizontal">
     <div class="row">
@@ -36,13 +45,14 @@
         </div>
     </div>
 
-    <div class="star-form-group" id="star1">               <%#id要素の付与がポイント%>
-      <%= f.label :score_taste,'評価(味)', class:'star-title' %>　<%#保存したいカラムの指定%>
+    <%= f.label :"評価" %>
+    <div class="star-form-group" id="star1"><%#id要素の付与がポイント%>
+      <%= f.label :score_taste,'味', class:'star-title' %><%#保存したいカラムの指定%>
     </div>
 
     <script>
     $('#star1').raty({
-      size     : 38,                                    //星のサイズ
+      size     : 38, //星のサイズ
       starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
       starOn : '<%= asset_path('star-on.png') %>',
       starHalf: '<%= asset_path('star-half.png') %>',
@@ -52,7 +62,7 @@
     </script>
 
     <div class="star-form-group" id="star2"><%#id要素の付与がポイント%>
-      <%= f.label :score_price,'評価(価格)', class:'star-title' %>   <%#保存したいカラムの指定%>
+      <%= f.label :score_price,'価格', class:'star-title' %><%#保存したいカラムの指定%>
     </div>
 
     <script>
@@ -67,7 +77,7 @@
     </script>
 
     <div class="star-form-group" id="star3"><%#id要素の付与がポイント%>
-      <%= f.label :score_stomach,'評価(腹持ち)', class:'star-title' %>   <%#保存したいカラムの指定%>
+      <%= f.label :score_stomach,'腹持ち', class:'star-title' %><%#保存したいカラムの指定%>
     </div>
 
     <script>
@@ -82,7 +92,7 @@
     </script>
 
     <div class="star-form-group" id="star4"><%#id要素の付与がポイント%>
-      <%= f.label :score_nutrition,'評価(栄養)', class:'star-title' %>   <%#保存したいカラムの指定%>
+      <%= f.label :score_nutrition,'栄養', class:'star-title' %>   <%#保存したいカラムの指定%>
     </div>
 
     <script>
@@ -97,7 +107,7 @@
     </script>
 
     <div class="star-form-group" id="star5"><%#id要素の付与がポイント%>
-      <%= f.label :score_easy,'評価(手軽さ)', class:'star-title' %>   <%#保存したいカラムの指定%>
+      <%= f.label :score_easy,'手軽さ', class:'star-title' %>   <%#保存したいカラムの指定%>
     </div>
 
     <script>
@@ -111,6 +121,7 @@
     });
     </script>
 
+  <br>
   <div class="row">
     <div class="form-group col-3">
       <%= f.label :shop_name, "店舗名" %>
