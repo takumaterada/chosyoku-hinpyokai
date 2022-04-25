@@ -1,14 +1,9 @@
 <%= render "layouts/header" %>
 <div class="container mt-5">
-
-  <% if @post.errors.any? %>
-    <%= @post.errors.count %>件のエラーが発生しました
-      <ul>
-        <% @post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-  <% end %>
+  
+  <div id="comments-error">
+    <%= render 'layouts/error_messages', model: @post %>
+  </div>
 
   <%= form_with model:@post, url: posts_path, local:true do |f| %>
   <div class="form-horizontal">
