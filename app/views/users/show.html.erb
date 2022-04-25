@@ -15,13 +15,18 @@
         	  <td><%= @user.introduction %></td>
         	</tr>
         	<tr>
-        	  <th><%=link_to"いいねした投稿",favorites_user_path(@user) %></th>
+        	  <th>いいねした投稿</th>
+        	  <td style="text-align: right;">
+        	    <%= link_to favorites_user_path(@user) do %>
+        	    <%= @user.favorites.count %>件
+        	    <% end %>
+        	   </td>
         	</tr>
           <tr>
         	  <th style="min-width: 120px">フォロー数</th>
         	  <td style="text-align: right;">
         	      <%= link_to user_followings_path(@user) do %>
-        	    　  <%= @user.followings.count %>
+        	    　  <%= @user.followings.count %>人
         	      <%- end %>
         	   </td>
           </tr>
@@ -29,7 +34,7 @@
             <th>フォロワー数</th>
               <td style="text-align: right;">
                 <%= link_to user_followers_path(@user) do %>
-                  <%= @user.followers.count %>
+                  <%= @user.followers.count %>人
                 <%- end %>
               </td>
           </tr>
