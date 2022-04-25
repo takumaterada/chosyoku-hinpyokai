@@ -1,0 +1,21 @@
+<% if post.post_comments.present? %>
+  コメント件数：<%= post.post_comments.count %>
+  <p><% post.post_comments.each do |post_comment| %></p>
+  <div class="media">
+    <div class="mr-5">
+      <%= image_tag post_comment.user.get_profile_image(50,50) %><br>
+      <%= post_comment.user.name %>
+    </div>
+    <div class="media-body">
+      <h6 class="mt-0">コメント</h6>
+        <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+        <%= post_comment.comment %>
+        <% if post_comment.user == current_user %>
+          <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, remote: true, data: {confirm: "本当に削除しますか？"} %>
+        <% end %>
+    </div>
+  </div>
+    <% end %>
+<% else %>
+  <p>コメントはまだありません</p>
+<% end %>

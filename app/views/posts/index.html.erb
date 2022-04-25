@@ -66,7 +66,7 @@
   <div class="col-sm-8 offset-sm-1 justify-content-start">
   <h3>投稿一覧</h3>
   <%= form_with model:@post, local:true do |f| %>
-    <%= f.collection_select(:genre_id, @genres, :id, :name, {prompt: "ジャンルで絞込み"} ) %>
+    <%= f.collection_select(:genre_id, @genres, :id, :name, { include_blank: "ジャンルで絞込み", selected: @genre}, :onchange => "post_genre_change()" ) %>
   <% end %>
   <% @posts.each do |post| %>
     <div class="d-inline-flex p-4 bd-highlight ">
@@ -80,9 +80,21 @@
   <% end %>
   </div>
 
-  <div class="justify-content-end">
-      <%= paginate @posts %></p>
+  <div class="w100 paginate">
+      <%= paginate @posts %>
   </div>
 
 </div><!--container mt-5-->
 <%= render "layouts/footer" %>
+
+<script>
+function post_genre_change()
+{
+  var genre = document.getElementById('genre_id');
+  if (genre.value == '') {
+    location.href = "<%=posts_path%>";
+    return;
+  }
+  location.href = "<%=posts_path%>?genre_id=" + genre.value;
+}
+</script>

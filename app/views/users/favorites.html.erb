@@ -1,0 +1,19 @@
+<%= render "layouts/header" %>
+
+<div class="container mt-5">
+
+<h3>いいねした投稿</h3>
+<% @favorite_posts.each do |post|%>
+<div class="d-inline-flex p-4 bd-highlight ">
+  <%= link_to post_path(post.id) do %>
+    <p><%= image_tag post.get_image(300,300) %></p>
+    <p><%= post.name %></p>
+    <p><%= "#{post.post_comments.count} コメント" %></p>
+    <p><%= "#{post.favorites.count} よいね" %></p>
+  <% end %>
+</div>
+<% end %>
+
+</div>
+
+<%= render "layouts/footer" %>

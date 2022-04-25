@@ -18,18 +18,25 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.page(params[:page])
+    @posts = Post.all
+    if params[:genre_id].present?
+      @posts = @posts.where(genre_id: params[:genre_id])
+    end
+    @posts = @posts.page(params[:page])
     @tag_list = Tag.all
-    @post_like_ranks = Post.find(Favorite.group(:post_id).order('count(post_id) desc').pluck(:post_id))
-    @post_comment_ranks = Post.find(PostComment.group(:post_id).order('count(post_id) desc').pluck(:post_id))
+#    @post_like_ranks = Post.find(Favorite.group(:post_id).order('count(post_id) desc').pluck(:post_id).limit(5))
+    @post_like_ranks = Post.left_joins(:favorites).group(:id).order('count(favorites.post_id) desc').limit(5)
+#    @post_comment_ranks = Post.find(PostComment.group(:post_id).order('count(post_id) desc').pluck(:post_id).limit(5))
+    @post_comment_ranks = Post.left_joins(:post_comments).group(:id).order('count(post_comments.post_id) desc').limit(5)
     @genres = Genre.all
+    @genre = params[:genre_id]
   end
 
   def show
     @post = Post.find(params[:id])
     @user = @post.user
     @post_tags = @post.tags
-    @post_comment = PostComment.new
+    @comment = PostComment.new
   end
 
   def edit

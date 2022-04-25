@@ -1,0 +1,6 @@
+<!--id="comments_areaにをrenderで指定した部分テンプレートに更新-->
+<%# binding.pry %>
+$("#comments_area").html("<%= j(render 'post_comments/post_comments', post: @post) %>");
+<!--フォームを送信したあとにフォームの値を空にします-->
+$("textarea").val('');
+$('#flash-message').html("<%= j(render 'layouts/flash') %>");
