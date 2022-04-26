@@ -1,0 +1,5 @@
+<div style="text-align: right;">
+  <%= link_to user_followers_path(@user) do %>
+    <%= @user.followers.count %>人
+  <%- end %>
+</div>
