@@ -9,6 +9,9 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
     @tag_list = params[:post][:tag].split(',')
     if @post.save
+        tags = Vision.get_image_data(@post.image)
+        @tag_list << tags #配列を追加している
+        @tag_list.flatten!　#配列を１つにする
         @post.save_tag(@tag_list)
         redirect_to post_path(@post)
     else

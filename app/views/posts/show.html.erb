@@ -243,7 +243,8 @@
 
   <div class="row">
     <div class="offset-sm-9 col-sm-2">
-      <% if @post.user == current_user %>
+      <% if @post.user == current_user || (current_user != nil && current_user.is_admin == true) %>
+      <%# if @post.user == current_user || current_user == nil || current_user.is_admin == true %>
         <%= link_to "編集", edit_post_path(@post), class: "btn btn-secondary text-white" %>
         <%= link_to '削除', @post, url: edit_post_path, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-danger text-white"%>
       <% end %>

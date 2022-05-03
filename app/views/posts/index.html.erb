@@ -65,7 +65,8 @@
 
   <div class="col-sm-8 offset-sm-1 justify-content-start">
   <h3>投稿一覧</h3>
-  <%= form_with model:@post, local:true do |f| %>
+
+  <%= form_with url: posts_path, local:true do |f| %>
     <%= f.collection_select(:genre_id, @genres, :id, :name, { include_blank: "ジャンルで絞込み", selected: @genre}, :onchange => "post_genre_change()" ) %>
   <% end %>
   <% @posts.each do |post| %>

@@ -1,6 +1,6 @@
 <%= render "layouts/header" %>
 <div class="container mt-5">
-  
+
   <div id="comments-error">
     <%= render 'layouts/error_messages', model: @post %>
   </div>
@@ -45,76 +45,30 @@
       <%= f.label :score_taste,'味', class:'star-title' %><%#保存したいカラムの指定%>
     </div>
 
-    <script>
-    $('#star1').raty({
-      size     : 38, //星のサイズ
-      starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
-      starOn : '<%= asset_path('star-on.png') %>',
-      starHalf: '<%= asset_path('star-half.png') %>',
-      scoreName: 'post[score_taste]',     //reviewモデルのcomfortカラムに保存
-      half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
-    });
-    </script>
 
     <div class="star-form-group" id="star2"><%#id要素の付与がポイント%>
       <%= f.label :score_price,'価格', class:'star-title' %><%#保存したいカラムの指定%>
     </div>
 
-    <script>
-    $('#star2').raty({
-      size     : 38,                                    //星のサイズ
-      starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
-      starOn : '<%= asset_path('star-on.png') %>',
-      starHalf: '<%= asset_path('star-half.png') %>',
-      scoreName: 'post[score_price]',     //postモデルのscoreカラムに保存
-      half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
-    });
-    </script>
+
 
     <div class="star-form-group" id="star3"><%#id要素の付与がポイント%>
       <%= f.label :score_stomach,'腹持ち', class:'star-title' %><%#保存したいカラムの指定%>
     </div>
 
-    <script>
-    $('#star3').raty({
-      size     : 38,                                    //星のサイズ
-      starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
-      starOn : '<%= asset_path('star-on.png') %>',
-      starHalf: '<%= asset_path('star-half.png') %>',
-      scoreName: 'post[score_stomach]',     //reviewモデルのcomfortカラムに保存
-      half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
-    });
-    </script>
+
 
     <div class="star-form-group" id="star4"><%#id要素の付与がポイント%>
       <%= f.label :score_nutrition,'栄養', class:'star-title' %>   <%#保存したいカラムの指定%>
     </div>
 
-    <script>
-    $('#star4').raty({
-      size     : 38,                                    //星のサイズ
-      starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
-      starOn : '<%= asset_path('star-on.png') %>',
-      starHalf: '<%= asset_path('star-half.png') %>',
-      scoreName: 'post[score_nutrition]',     //reviewモデルのcomfortカラムに保存
-      half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
-    });
-    </script>
+
 
     <div class="star-form-group" id="star5"><%#id要素の付与がポイント%>
       <%= f.label :score_easy,'手軽さ', class:'star-title' %>   <%#保存したいカラムの指定%>
     </div>
 
-    <script>
-    $('#star5').raty({
-      size     : 38,                                    //星のサイズ
-      starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
-      starOn : '<%= asset_path('star-on.png') %>',
-      starHalf: '<%= asset_path('star-half.png') %>',
-      scoreName: 'post[score_easy]',     //reviewモデルのcomfortカラムに保存
-      half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
-    });
-    </script>
+
 
   <br>
   <div class="row">
@@ -201,3 +155,17 @@
 </div><!--container mt-5-->
 
 <%= render "layouts/footer" %>
+
+    <script>
+    let scorenames = ['post[score_taste]' , 'post[score_price]', 'post[score_stomach]', 'post[score_nutrition]', 'post[score_easy]']
+    for( let i = 0; i < 6; i++) {
+    $(`#star${i+1}`).raty({
+      size     : 38, //星のサイズ
+      starOff:  '<%= asset_path('star-off.png') %>',    //imagesフォルダより星画像の呼び出し
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: scorenames[i],     //reviewモデルのcomfortカラムに保存
+      half: true,                       //星半分を許可する。DBには0.5単位の数値が保存される
+    });
+    }
+    </script>

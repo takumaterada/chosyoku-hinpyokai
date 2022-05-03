@@ -25,9 +25,9 @@
 }
 
 .title-top{
-  position: absolute;
-  top: 480px; /* #contents内の上から何pxか */
-  left: 280px; /* #contents内の左から何pxか */
+  //position: absolute;
+  //top: 480px; /* #contents内の上から何pxか */
+  //left: 280px; /* #contents内の左から何pxか */
 }
 
 .about-top{
@@ -40,7 +40,9 @@
 }
 
 h3{
-  text-align: center;
+  padding-left: 110px;
+
+  //text-align: center;
 }
 
 .introduction{
@@ -49,9 +51,9 @@ h3{
 
 .top-ul{
   list-style: none;
-  position: absolute;
-  top: 550px; /* #contents内の上から何pxか */
-  left: 130px; /* #contents内の左から何pxか */
+//  position: absolute;
+//  top: 550px; /* #contents内の上から何pxか */
+//  left: 130px; /* #contents内の左から何pxか */
   display: flex;
 }
 
